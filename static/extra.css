@@ -1,0 +1,188 @@
+/*.entry {*/
+/*  position: absolute;*/
+/*  top: 50%;*/
+/*  left: 50%;*/
+/*  transform: translate(-50%, -50%);*/
+/*  width: 100vw;*/
+/*  height: 100vh;*/
+/*  z-index: 9999;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  }*/
+
+/*.box {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  position: relative;*/
+/*  width: 30rem;*/
+/*  height: 30rem;*/
+/*  background: blue;*/
+/*  border-radius: 2rem;*/
+/*  }*/
+/*.notice {*/
+/*  text-align: center;*/
+/*  color: #005397;*/
+/*  font-size: 1.2rem;*/
+/*  }*/
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+#chatHeader {
+  height: 8vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) -10%,
+    rgba(255, 255, 255, 0.8) 80%
+  );
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 2rem 2rem;
+  box-shadow: 0 1rem 3rem -2rem #0004;
+  border-bottom: 0.1rem solid #ffffff;
+  overflow-x: hidden;
+  justify-content: space-around;
+  align-items: center;
+}
+#chatHeader span {
+  text-align: left;
+  margin: 0 1.5rem;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  /*overflow: hidden;*/
+}
+#chatHeader h1 {
+  /*height: 100%;*/
+  font-weight: 700;
+  text-align: center;
+  /*padding-bottom:1rem;*/
+  /*padding-bottom: 1rem;*/
+  /*border-bottom: 0.1rem solid #535260;*/
+  flex-grow: 6;
+  font-size: 1.8rem;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow: auto;
+}
+#chatHeader h1::-webkit-scrollbar {
+  display: none; /* Chrome , Safari , Opera */
+}
+#chatHeader > button {
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 2rem;
+  flex-grow: 3;
+}
+#chatHeader > button > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #ec9daf;
+  text-decoration-line: none;
+  /*background: #000;*/
+}
+#chatHeader > button > a:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #000;
+  /*background: #000;*/
+}
+
+#chatContent {
+  background: #eee5;
+  /*background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(147,148,177,1) 50%, rgba(252,231,188,1) 100%);*/
+}
+
+#chatFunc {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(255, 255, 255, 0.8) 80%
+  );
+  backdrop-filter: blur(5px);
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 -2rem 3rem -2rem #0002;
+  border-top: 0.1rem solid #ffffff;
+  overflow-x: hidden;
+}
+#chatFunc > button,
+#chatFunc > input,
+#chatFunc select {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+#chatFunc > input {
+  box-sizing: border-box;
+  border-radius: 1.25rem;
+  padding: 0.6rem 0.8rem;
+  background-color: #fff;
+  border: 0.2rem solid #211f3740;
+}
+#chatFunc > input::placeholder {
+  color: #371f25;
+  font-weight: 300;
+}
+#chatFunc > input:focus {
+  background-color: #efe1d1;
+}
+.chat-wrap {
+  margin-bottom: 1.6rem;
+}
+.chat-wrap:nth-child(1) {
+  margin-top: 16vh;
+}
+.chat-wrap:last-child {
+  margin-bottom: 12vh;
+}
+
+/*.lm {*/
+/*  margin-bottom: 12vh;*/
+/*}*/
+
+#chatFunc > button {
+  width: 3rem;
+  height: 4rem;
+  margin: 1rem;
+}
+#chatFunc > button:active {
+  border-radius: 50%;
+  background: #0001;
+}
+
+/* 말풍선 */
+.my-chat {
+  border-radius: 1rem 1rem 0 1rem;
+  box-shadow: 0.3rem 0.3rem 0.5rem -0.3rem rgba(0, 0, 0, 0.2);
+}
+.ur-chat {
+  border-radius: 1rem 1rem 1rem 0;
+  box-shadow: -0.3rem 0.3rem 0.5rem -0.3rem rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,55 @@
+@property --var1 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6668;
+  }
+
+@keyframes fadeIn {
+  0% {
+    --var1: transparent;
+    }
+  
+  100% {
+    --var1: #6668;
+    }
+  }
+
+@keyframes fadeOut {
+  0% {
+    --var1: #6668;
+    }
+  
+  100% {
+    --var1:transparent;
+    }
+  }
+
+.container {
+  animation: fadeOut .5s ease-in-out forwards;
+  }
+
+.container:hover {
+  animation: fadeIn .5s ease-in-out forwards;
+  }
+
+.container::-webkit-scrollbar {
+  background: transparent;
+  width: 0.5rem;
+  }
+
+.container::-webkit-scrollbar-thumb {
+  background: var(--var1);
+  border-radius: 2rem;
+  }
+
+/*::-webkit-scrollbar-thumb {*/
+/*  background: #6668;*/
+/*  }*/
+/*::-webkit-scrollbar-track {*/
+/*  background: #e1e1e100;*/
+/*  border-radius: 50px;*/
+/*  }*/
+
+/*::-webkit-scrollbar-corner {*/
+/*  background: transparent;*/
+/*  }*/

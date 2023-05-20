@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>챗방</title>
+    <link rel="stylesheet" href="/static/common.css" />
+    <link rel="stylesheet" href="/static/chat.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+            integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="/static/scroll.css">
+    <link rel="stylesheet" href="/static/extra.css">
+
+    <style>
+
+
+    </style>
+</head>
+<body>
+<div id="root">
+    <div id="chatWrap">
+        <div id="chatHeader">
+            <button id="back">
+                <a href="/">
+                    <i class="fas fa-times"></i>
+                </a>
+            </button>
+            <span>멤버 : </span>
+            <h1 class="member">
+                Chat</h1>
+            <!--      <button id="more">-->
+            <!--        <i class="fas fa-bars"></i>-->
+            <!--      </button>-->
+        </div>
+        <div id="chatContent" class="container">
+            <div class="chat-wrap ur-chat-wrap">
+                <p class="nick">방장봇</p>
+                <div class="message chat-box ur-chat" id="test1"><span class="text">안녕하세요. </span></div>
+                <div class="button-bar off ur-button-bar flex-off">
+                    <button class="btn-item quake" id="quake">🌀</button>
+                    <button class="btn-item ta-da" id="tada">🎉</button>
+                    <button class="btn-item">💓</button>
+                    <button class="btn-item">🌀</button>
+                    <button class="btn-item">🌀</button>
+                </div>
+            </div>
+            <div class="chat-wrap ur-chat-wrap">
+                <p class="nick">방장봇</p>
+                <div class="message chat-box ur-chat" id="test2"><span class="text ">1.도배 금지 </span></div>
+                <div class="button-bar off ur-button-bar flex-off">
+                    <button class="btn-item quake" id="quake">🌀</button>
+                    <button class="btn-item ta-da" id="tada">🎉</button>
+                    <button class="btn-item">💓</button>
+                    <button class="btn-item">🌀</button>
+                    <button class="btn-item">🌀</button>
+                </div>
+            </div>
+            <div class="chat-wrap ur-chat-wrap">
+                <p class="nick">방장봇</p>
+                <div class="message chat-box ur-chat" id="test3"><span class="text">2.영어 금지</span></div>
+                <div class="button-bar off ur-button-bar flex-off">
+                    <button class="btn-item quake" id="quake">🌀</button>
+                    <button class="btn-item ta-da" id="tada">🎉</button>
+                    <button class="btn-item">💓</button>
+                    <button class="btn-item">🌀</button>
+                    <button class="btn-item">🌀</button>
+                </div>
+            </div>
+        </div>
+        <div id="chatFunc">
+            <!--            <label for="whisper">-->
+            <!--                <select name="select" id="whisper">-->
+            <!--                    <option value="귓속말" selected>귓속말</option>-->
+            <!--                </select>-->
+            <!--            </label>-->
+            <input
+                    type="text"
+                    id="type"
+                    name="type"
+                    placeholder="메시지를 입력 하세요."
+                    onfocus="this.placeholder=''"
+                    onblur="this.placeholder='메시지를 입력 하세요.'"
+            />
+            <button id="enter">전송</button>
+        </div>
+    </div>
+</div>
+<!--<div class="entry">-->
+<!--    <div class="box">-->
+<!--        <input type="text" id="nickname" placeholder="Nickname" autofocus />-->
+<!--        <button type="button" onclick="entry();">입장</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script>
+  //e.target ** 클릭ㅎ
+  // socket io 연결
+  let socket = io.connect();
+  let myNick = '<%= name %>';
+  const chat = document.querySelector("#chatContent");
+  const urChat = document.querySelector('.ur-chat');
+  const type = document.querySelector("#type");
+  const enter = document.querySelector("#enter");
+  reaction()
+
+  // 말풍선 호버할  때 반응 팝업 on/off
+  function reaction () {
+    let msg = document.querySelectorAll(".message");
+    // 마우스 호버/아웃이 버튼바 팝업
+    let chatWrap = document.querySelectorAll(".chat-wrap");
+    msg.forEach((item) => {
+      // console.log(item);
+      item.addEventListener("mouseenter", function (e) {
+        // console.log(this);
+        e.stopPropagation();
+        const btnBar = this.parentNode.querySelector(".button-bar");
+        // console.log(btnBar)
+        // const btnBar = this.querySelector(".button-bar");
+        btnBar.classList.replace("off", "on");
+      });
+    });
+    chatWrap.forEach((item) => {
+      item.addEventListener("mouseleave", function (e) {
+        e.stopPropagation();
+        const btnBar = this.querySelector(".button-bar");
+        btnBar.classList.replace("on", "off");
+      });
+    });
+  }
+
+  // 반응 관련 코드
+
+  //
+  //
+
+  // const enter = document.querySelector("#enter");
+  // const urName = urChat.before;
+  // // 대화 상대 이름 서버에서 가져오기
+  // function getUserName () {
+  //   return 'asd'
+  // }
+  // // 대화 상대 이름 설정
+  // urName.style.content = getUserName();
+  //
+  // 메시지 전송시 화면 출력
+
+  // todo send 이후 newMessage 이벤트로 새로 연결
+  const addMessage = (e) => {
+    if (e.keyCode === 13 || e.type === "click") {
+      if (!type.value) {
+        alert("메시지를 입력해주세요");
+        return;
+      } else {
+        // io 수신 socket.on send
+        const data = {
+          nick:myNick,
+          msg:type.value,
+          sid:Date.now(),
+        }
+        socket.emit('send', data) // 데이터 서버로 보냄
+        type.value = "";
+
+      }
+    }
+  };
+  enter.addEventListener("click", addMessage);
+  type.addEventListener("keydown", addMessage);
+
+  //todo  받은 데이터를 말풍선으로 꾸며서 화면 출력하기
+  //todo  sid id값으로 지정해주기
+  //todo  상대 닉네임이면 ur-chat / ur-button-bar
+  //
+  // const type = document.querySelector("#type");
+  // const div = document.createElement("div");
+  // const span = document.createElement("span");
+  // div.classList.add("my-chat-wrap");
+  // span.textContent = type.value;
+  // span.classList.add("chat-box");
+  // span.classList.add("my-chat");
+  // div.appendChild(span);
+  // chat.appendChild(div);
+
+
+  //
+
+
+</script>
+
+<script>
+  //<div class="button-bar off my-button-bar on">
+  //         <button class="btn-item quake" id="quake">🌀</button>
+  //         <button class="btn-item ta-da" id="tada">🎉</button>
+  //         <button class="btn-item">💓</button>
+  //         <button class="btn-item">🌀</button>
+  //         <button class="btn-item">🌀</button>
+  //       </div>
+  const defaultReact = 'animate__animated';
+  const reactObj = {
+    quake:'animate__shakeX',
+    tada:'animate__tada',
+    heartBeat:'animate__heartBeat',
+    rubber:'animate__rubberBand',
+    hinge:'animate__hinge',
+  };
+
+  function makeBtnBar (who) {
+    const buttonBar = document.createElement('div');
+    buttonBar.classList.add('button-bar', who)
+    buttonBar.classList.add('off')
+    const button1 = document.createElement('button');
+    button1.classList.add('btn-item', 'quake');
+    button1.id = 'quake';
+    button1.textContent = '🌀';
+    buttonBar.appendChild(button1);
+    const button2 = document.createElement('button');
+    button2.classList.add('btn-item', 'ta-da');
+    button2.id = 'tada';
+    button2.textContent = '🎉';
+    buttonBar.appendChild(button2);
+    const button3 = document.createElement('button');
+    button3.classList.add('btn-item', 'heartbeat');
+    button3.id = 'heartBeat'
+    button3.textContent = '💓';
+    buttonBar.appendChild(button3);
+    const button4 = document.createElement('button');
+    button4.classList.add('btn-item', 'rubber');
+    button4.id = 'rubber'
+    button4.textContent = '🦆';
+    buttonBar.appendChild(button4);
+    const button5 = document.createElement('button');
+    button5.classList.add('btn-item', 'hinge');
+    button5.id = 'hinge'
+    button5.textContent = '🔨';
+    buttonBar.appendChild(button5);
+
+    return buttonBar;
+  }
+</script>
+<script>
+  socket.on('connect', (d) => {
+    console.log(d)
+    console.log('chat.ejs Connected =.', socket.id)
+    socket.emit('entryChat');
+  });
+  socket.on('updateNicks', (nickObj) => {
+    const h1 = document.querySelector('.member');
+    const nickValues = Object.values(nickObj);
+    h1.textContent = nickValues.join(',');
+    //
+  })
+  socket.on('notice', (msg) => {
+    document
+    .querySelector("#chatContent")
+    .insertAdjacentHTML("beforeend", `<div class="notice">${ msg }</div>`);
+    setTimeout(() => {
+      chat.scrollTop = chat.scrollHeight;
+    }, 10)
+  });
+
+
+  function entry () {
+    console.log(document.querySelector("#nickname").value);
+    socket.emit("setNick", document.querySelector("#nickname").value);
+  }
+
+  // socket.on("entry", (nick) => {
+  //   // 1. 내 닉네임 설정
+  //   myNick = nick;
+  //   document.querySelector('.entry').remove();
+  // // 2. 닉네임 입력창 & 버튼 비활성화
+  // document.querySelector("#nickname").disabled = true; // 입력창 비활성화 (클릭 막기)
+  // document.querySelector(".entry-box > button").disabled = true; // 버튼 비활성화 (클릭 막기)
+  // // 3. div.chat-box 요소 보이기
+  // document.querySelector(".chat-box").classList.remove("d-none");
+  // });
+  socket.on('newMessage', (data) => {
+    console.log('newMessage', data);
+    //{nick: "test", msg: "rkddkwl", sid: "rid1681525512893"};
+    const nick = document.createElement('p');
+    nick.classList.add('nick');
+    const text = document.createElement('span');
+    text.classList.add('text');
+    text.textContent = data.msg;
+    const message = document.createElement('div');
+    message.classList.add('chat-box', 'message');
+    message.id = data.sid;
+    const chatWrap = document.createElement('div');
+    chatWrap.classList.add('chat-wrap');
+    message.append(text);
+    chatWrap.append(nick);
+    chatWrap.append(message);
+    if (data.nick === myNick) {
+      message.classList.add('my-chat');
+      // 닉네임 설정
+      nick.textContent = myNick;
+      chatWrap.classList.add('my-chat-wrap');
+      chatWrap.append(makeBtnBar('my-button-bar'));
+      //<div class="chat-wrap my-chat-wrap">
+      // <div class="message chat-box my-chat">
+      // <span class="text">테스트 입니다.</span></div>
+      // 수신된 메시지가 내 닉네임 과 같으면
+      //채팅창에 넣기
+    } else {
+      // 아닐 경우
+      message.classList.add('ur-chat');
+      // 닉네임  설정
+      nick.textContent = data.nick;
+      // const urChat = document.querySelector('.ur-chat');
+      // const urChatAfter = window.getComputedStyle(urChat, '::after');
+      // urChat.style.setProperty('--urNick', data.nick);
+      chatWrap.classList.add('ur-chat-wrap');
+      chatWrap.append(makeBtnBar('ur-button-bar'));
+    }
+    document.querySelector('#chatContent').append(chatWrap);
+    chat.scrollTop = chat.scrollHeight;
+    reaction();
+    sendReact();
+
+// 생성해야할 채팅 구조
+//     <div class="chat-wrap my-chat-wrap">
+//       <div class="msg chat-box my-chat"><span class="text">테스트 입니다1.</span></div>
+//
+//     </div>
+//     메세지가 도착했으면 nickname after 요소애 띄우기
+// myNick 에 저장된 현재 닉네임이 내거랑 다르면 상대방
+    //
+    // data 의 닉네임이 같다면, 내 채팅으로 보이게 (오른쪽 배치 == .my-chat)
+    // data 의 닉네임이 다르다면, 상대방 채팅으로 보이게 (왼쪽 배치 == .other-chat)
+    // divChat의 textContent/innerText 값을 적질히 변경
+    // ex. nick : msg 형태로 보이게 했음
+    // divChat 을 div 요소에 추가
+    // div를 chatList 에 추가
+    // divChat.innerText = `${data.nick}: ${data.msg}`;
+    // if (data.nick === myNick) {
+    //   div.classList.add("my-chat");
+    // } else {
+    //   div.classList.add("other-chat");
+    // }
+    // div.append(divChat);
+    // chatList.append(div);
+  })
+  // 채팅방
+  // socket.emit('setNick', document.querySelector('#nickname').value)
+
+
+  // 리액션 반응
+  // 4개 추가하기
+
+  function sendReact () {
+    // todo: target의 id값을 송신 받은 id 값을 쿼리셀렉트 하여 클래스 부여
+    const quake = document.querySelectorAll('.quake');
+    const tada = document.querySelectorAll('.ta-da');
+    const heartBeat = document.querySelectorAll('.heartbeat');
+    const rubber = document.querySelectorAll('.rubber');
+    const hinge = document.querySelectorAll('.hinge');
+
+    quake.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('quake', data);
+      })
+    })
+    quake.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('quake', data);
+      })
+    })
+    tada.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('tada', data);
+      })
+    })
+    heartBeat.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('heartBeat', data);
+      })
+    })
+    rubber.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('rubber', data);
+      })
+    })
+    hinge.forEach((item) => {
+      item.addEventListener('click', function (e) {
+        const id = e.target.id;
+        const reactID = reactObj[id];
+
+        const target = this.parentNode.parentNode.querySelector('.chat-box')
+        console.log(target)
+        // 태그의 고유값 보내기
+        const data = {
+          reactID:reactID,
+          id:id,
+          rid:target.id,
+          nick:this.parentNode.parentNode.querySelector('.nick').textContent
+        }
+        socket.emit('hinge', data);
+      })
+    })
+  }
+
+  let proceeding = false;
+  socket.on('react', (data) => {
+    console.log('>>',data)
+
+    const chatBox = document.querySelector('#' + data.id);
+    // if (proceeding) return clearTimeout(removeReact);
+    // const removeReact = setTimeout(function () {
+    //   chatBox.classList.remove(data.second)
+    //   proceeding = false;
+    //   console.log(proceeding)
+    // }, 1000)
+    // if (chatBox.contains(data.second)) return;
+    // chatBox.classList.remove(data.second);
+    console.log('>>', data.first);
+    // if (chatBox.contains(data.first)) chatBox.classList.toggle(data.first);
+
+    if (chatBox.classList.contains('my-chat')) {
+    chatBox.setAttribute('class', "chat-box message my-chat");
+    } else {
+      chatBox.setAttribute('class', "chat-box message ur-chat");
+    }
+    chatBox.classList.add(defaultReact, data.first);
+    setTimeout(() => {
+      chatBox.classList.remove(data.first);
+    }, 1000)
+
+    proceeding = true;
+    // console.log(proceeding)
+    // console.logs('react', data);
+    // // {first: "animate__animated", second: "animate__shakeX", id: "rid1681528121811"}
+    // console.log('selected chatbox', chatBox);
+    // chatBox.removeAttribute('id');
+
+    // 애니메이션 추가
+    // 받은 ID 삭제
+  })
+</script>
+
+
+<script>
+  //   // todo 테스트 1페이지에서 넘긴데이터 2페이지 확인
+  // socket.on('receiveTest',function(data){
+  //   console.log('receiveTest',data);
+  //   myNick = data.myNick;
+  // })
+
+</script>
+</body>
+</html>

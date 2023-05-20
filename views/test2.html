@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>MyChat</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/common.css" />
+  <link rel="stylesheet" href="../static/chat.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+          integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <link rel="stylesheet" href="../static/scroll.css">
+  <link rel="stylesheet" href="../static/extra.css">
+
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="root">
+  <div id="chatWrap">
+    <div id="chatHeader">
+      <button id="back">
+        <a href="/">
+          <i class="fas fa-sign-out fa-rotate-180"></i>
+        </a>
+      </button>
+      <h1 class="">Chat</h1>
+<!--      <button id="more">-->
+<!--        <i class="fas fa-bars"></i>-->
+<!--      </button>-->
+    </div>
+    <div id="chatContent" class="container">
+      <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">테스트 입니다1.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>
+      <div class="chat-wrap ur-chat-wrap">
+        <div class="msg chat-box ur-chat"><span class="text ">테스트 입니다.</span></div>
+        <div class="button-bar off ur-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>
+      <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text"> 머해 ?</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>  <div class="chat-wrap my-chat-wrap">
+        <div class="msg chat-box my-chat"><span class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolorem eveniet facere iusto nam nihil nisi nulla obcaecati odit officiis perferendis, quae quas qui quidem sapiente temporibus tenetur veniam voluptates.</span></div>
+        <div class="button-bar off my-button-bar on">
+          <button class="btn-item quake" id="quake">🌀</button>
+          <button class="btn-item ta-da" id="tada">🎉</button>
+          <button class="btn-item">💓</button>
+          <button class="btn-item">🌀</button>
+          <button class="btn-item">🌀</button>
+        </div>
+      </div>
+    </div>
+    <div id="chatFunc">
+      <label for="whisper">
+        <select name="select" id="whisper">
+          <option value="귓속말" selected>귓속말</option>
+        </select>
+      </label>
+      <label for="type"></label>
+      <input
+          type="text"
+          id="type"
+          name="type"
+          placeholder="메시지를 입력 하세요 ㅎ"
+          onfocus="this.placeholder=''"
+          onblur="this.placeholder='메시지를 입력 하세요 ㅎ'"
+      />
+      <button id="enter">전송</button>
+    </div>
+  </div>
+</div>
+<!--<div class="entry">-->
+<!--  <div class="box">-->
+<!--    <input type="text" id="nickname" placeholder="Nickname" autofocus />-->
+<!--    <button type="button" onclick="entry();">입장</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+</body>
+</html>
